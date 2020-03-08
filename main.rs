@@ -96,7 +96,6 @@ fn main() {
     println!("\n");
 
     let mut niveau:u8 = match u8::try_from(saisie_nombre("Choisissez votre niveau de jeu (minimum 1) :")) {
-        //Some(v) => {v},
         Ok(v) => {v},
         Err(_e) => {println!("Erreur de saisie ! Le niveau a 1 a été choisi ! \n"); 1u8},
     };
