@@ -1,12 +1,13 @@
 use std::io;
 use rand::Rng;
+use std::convert::TryFrom;
 
 
 fn saisie_nombre(texte:&str) -> i64 {
     let mut saisie:String = String::new();
     let valeur:i64;
     println!("{}", texte);
-    io::stdin().read_line(&mut saisie).expect("Un problème a été rencontré dans la capture de l'entrée");
+    io::stdin().read_line(&mut saisie).expect("Erreur de saisie, une erreur interne est survenue.");
     match saisie.trim().parse() {
         Ok(v) => {
             valeur = v
@@ -94,7 +95,11 @@ fn main() {
     println!("############ Valbou 2020 - v0.0.1 ############");
     println!("\n");
 
-    let mut niveau:u8 = saisie_nombre("Choisissez votre niveau de jeu (minimum 1) :") as u8;
+    let mut niveau:u8 = match u8::try_from(saisie_nombre("Choisissez votre niveau de jeu (minimum 1) :")) {
+        //Some(v) => {v},
+        Ok(v) => {v},
+        Err(_e) => {println!("Erreur de saisie ! Le niveau a 1 a été choisi ! \n"); 1u8},
+    };
     if niveau < 1 {
         niveau = 1;
     }
